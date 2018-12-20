@@ -6,4 +6,8 @@ before_install:
   - curl https://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components update kubectl
-  - gcloud auth activate-service-account --key-file service-account.json openssl aes-256-cbc -K $encrypted_0c35eebf403c_key -iv
+  - gcloud auth activate-service-account --key-file gcloud-service-account.json
+  - gcloud config set project multi-k8s-226022
+  - gcloud config set compute/zone us-central1-a
+  - gcloud container clusters get-credentials standard-cluster-1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
